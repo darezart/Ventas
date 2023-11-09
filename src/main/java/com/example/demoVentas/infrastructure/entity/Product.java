@@ -4,6 +4,7 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.Id;
+import javax.persistence.Lob;
 import javax.persistence.Table;
 
 @Entity
@@ -23,6 +24,11 @@ public class Product {
 	
 	@Column(name = "stock")
 	private int stock;
+	
+	//@Column(columnDefinition = "MEDIUMBLOB", name = "image")
+	@Lob
+	@Column(name = "image", length = 1048576)
+	private byte[] image;
 	
 	public Product() {
 		
@@ -58,6 +64,14 @@ public class Product {
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	
+	public byte[] getImage() {
+		return image;
+	}
+	
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	

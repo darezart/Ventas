@@ -44,6 +44,17 @@ public class ProductController {
 		return response;
 	}
 	
+	@GetMapping("/{id}")
+	public ResponseEntity<ProductDto> getProduct(@PathVariable Integer id){
+		
+		HttpHeaders headers = new HttpHeaders();
+		headers.add("Content-Type", "application/json");
+		
+		ProductDto productDto = productServicePort.getProduct(id);
+		
+		return new ResponseEntity<ProductDto>(productDto, headers, HttpStatus.OK);
+	}
+	
 	@GetMapping
 	public ResponseEntity<Iterable<ProductResponseDto>> getProducts(
 			@RequestParam(required = false, defaultValue = "0") String page,
@@ -66,15 +77,7 @@ public class ProductController {
 		
 	}
 	
-	@GetMapping("/{id}")
-	public ResponseEntity<ProductDto> getProduct(@PathVariable("id") Integer id){
-		HttpHeaders headers = new HttpHeaders();
-		headers.add("Content-Type", "application/json");
-		
-		ProductDto productDto = productServicePort.getProduct(id);
-		
-		return new ResponseEntity<ProductDto>(productDto, headers, HttpStatus.OK);
-	}
+	
 	
 	
 	

@@ -17,6 +17,7 @@ public class ProductResponseDto implements Serializable{
 	private String name;
 	private int price;
 	private int stock;
+	private byte[] image;
 	
 	
 	public Integer getId() {
@@ -42,6 +43,12 @@ public class ProductResponseDto implements Serializable{
 	}
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	public byte[] getImage() {
+		return image;
+	}
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 	
 	

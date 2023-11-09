@@ -25,6 +25,8 @@ public class ProductInsertRequestDto implements Serializable{
 	
 	@NotNull
 	private int stock;
+	
+	private byte[] image;
 
 	public String getName() {
 		return name;
@@ -48,6 +50,14 @@ public class ProductInsertRequestDto implements Serializable{
 
 	public void setStock(int stock) {
 		this.stock = stock;
+	}
+	
+	public byte[] getImage() {
+		return image;
+	}
+	
+	public void setImage(byte[] image) {
+		this.image = image;
 	}
 
 	

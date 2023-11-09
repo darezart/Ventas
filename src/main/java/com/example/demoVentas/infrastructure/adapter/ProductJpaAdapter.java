@@ -1,4 +1,4 @@
-package com.example.demoVentas.domain.adapter;
+package com.example.demoVentas.infrastructure.adapter;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -15,10 +15,10 @@ import com.example.demoVentas.domain.dto.ProductInsertRequestDto;
 import com.example.demoVentas.domain.dto.ProductResponseDto;
 import com.example.demoVentas.domain.ports.spi.ProductPersistancePort;
 import com.example.demoVentas.infrastructure.entity.Product;
+import com.example.demoVentas.infrastructure.exception.NotFoundException;
 import com.example.demoVentas.infrastructure.mapper.ProductMapper;
 import com.example.demoVentas.infrastructure.model.ProductModel;
 import com.example.demoVentas.infrastructure.repository.ProductRepository;
-
 
 
 @Service
@@ -35,12 +35,14 @@ public class ProductJpaAdapter implements ProductPersistancePort{
 		product.setName(productInsert.getName());
 		product.setPrice(productInsert.getPrice());
 		product.setStock(productInsert.getStock());
+		product.setImage(productInsert.getImage());
 		
 		product = productRepository.save(product);
 		productResponse.setId(product.getId());
 		productResponse.setName(product.getName());
 		productResponse.setPrice(product.getPrice());
 		productResponse.setStock(product.getStock());
+		productResponse.setImage(product.getImage());
 		return ProductMapper.INSTANCE.productModelToProductDto(productResponse);
 	}
 
@@ -74,10 +76,15 @@ public class ProductJpaAdapter implements ProductPersistancePort{
 		Optional<Product> product = productRepository.findById(id);
 		ProductModel productIdResponse = new ProductModel();
 		
+		if (!product.isPresent()) {
+			throw new NotFoundException("Not Found");
+		}
+		
 		productIdResponse.setId(product.get().getId());
 		productIdResponse.setName(product.get().getName());
 		productIdResponse.setPrice(product.get().getPrice());
 		productIdResponse.setStock(product.get().getStock());
+		productIdResponse.setImage(product.get().getImage());
 		
 		return ProductMapper.INSTANCE.productModelToProductDto(productIdResponse);
 	}
